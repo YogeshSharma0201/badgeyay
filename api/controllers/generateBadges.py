@@ -43,6 +43,7 @@ def generateBadges():
         return ErrorResponse(ImageNotFound().message, 422, {'Content-Type': 'application/json'}).respond()
 
     csv_name = data.get('csv')
+    csv_type = data.get('csv_type') or ''
     badge_name = data.get('badge_name') or 'My Badge'
     image_name = data.get('image')
     logo_image = data.get('logo_image')
@@ -136,6 +137,7 @@ def generateBadges():
         logo_text,
         logo_image,
         csv_name,
+        csv_type,
         paper_size,
         badge_size)
 
@@ -149,8 +151,7 @@ def generateBadges():
 
     user_creator.allowed_usage = user_creator.allowed_usage - 1
 
-    badge_created = Badges(image=image_name, csv=csv_name, font_color_1=font_color_1, font_color_2=font_color_2,
-                           font_color_3=font_color_3, font_color_4=font_color_4, font_color_5=font_color_5,
+    badge_created = Badges(image=image_name, csv=csv_name, text_color=font_color_1,
                            badge_size=badge_size, badge_name=badge_name, creator=user_creator)
 
     badge_created.save_to_db()
@@ -168,7 +169,7 @@ def generateBadges():
         badge_created.image_link = link
         link = fileUploader(badgePath + '/all-badges.pdf',
                             'badges/' + badge_created.id + '.pdf')
-        send_badge_mail(badge_created.id, user_creator.id, link)
+        # send_badge_mail(badge_created.id, user_creator.id, link)
         badge_created.download_link = link
         rmtree(badgePath, ignore_errors=True)
 

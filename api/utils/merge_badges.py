@@ -11,6 +11,7 @@ class MergeBadges:
                  logo_text,
                  logo_image,
                  csv_name,
+                 csv_type,
                  paper_size,
                  badge_size):
         self.APP_ROOT = app.config.get('BASE_DIR')
@@ -18,6 +19,7 @@ class MergeBadges:
                                               logo_text,
                                               logo_image,
                                               csv_name,
+                                              csv_type,
                                               paper_size,
                                               badge_size)
         self.badge_generator.run_generator()

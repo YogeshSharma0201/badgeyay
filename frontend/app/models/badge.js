@@ -6,6 +6,7 @@ export default Model.extend({
   uid           : attr('string'),
   badgename     : attr('string'),
   csv           : attr('string'),
+  csv_type       : attr('string'),
   image         : attr('string'),
   logo_text     : attr('string'),
   logo_color    : attr('string'),

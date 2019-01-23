@@ -23,6 +23,7 @@ class GenerateBadges:
                  logo_text,
                  logo_image,
                  csv_name,
+                 csv_type,
                  paper_dimen,
                  badge_size):
         self.APP_ROOT = app.config.get('BASE_DIR')
@@ -31,6 +32,7 @@ class GenerateBadges:
         self.image = os.path.join(app.config.get('BASE_DIR'), 'static', 'uploads', 'image', image_name)
         self.logo_image = os.path.join(app.config.get('BASE_DIR'), 'static', 'uploads', 'image', logo_image)
         self.csv = os.path.join(app.config.get('BASE_DIR'), 'static', 'uploads', 'csv', csv_name)
+        self.csv_type = csv_type
         self.paper_size = {'A3': ['297mm', '420mm'], 'A4': ['210mm', '297mm'], 'A5': ['148mm', '210mm'], 'A6': ['105mm', '148mm']}
         self.paper_dimen = paper_dimen
         dimen = badge_config[paper_dimen][badge_size]
@@ -55,6 +57,11 @@ class GenerateBadges:
             rows = []
             i = 1
             for row in csv.reader(f):
+                if self.csv_type == 'eventyay':
+                    _row = row[3:5]
+                    _row.append(row[-3])
+                    _row.append(row[5])
+                    row = _row
                 rows.append(row)
                 if self.wrap:
                     rows.append(row)
